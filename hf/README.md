@@ -27,6 +27,7 @@ tags:
 **Inworld SAVA voice activity detection and end-of-turn detection, as ONNX.** One small model answers both "is someone speaking?" and "have they finished their turn?" every 40 ms, on CPU, with no PyTorch.
 
 [![Hugging Face](https://img.shields.io/badge/%F0%9F%A4%97-Binu30%2Fsava--onnx-yellow)](https://huggingface.co/Binu30/sava-onnx)
+[![PyPI](https://img.shields.io/pypi/v/sava-onnx)](https://pypi.org/project/sava-onnx/)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue)](https://github.com/Robinbinu/sava-onnx/blob/main/LICENSE)
 [![Original model](https://img.shields.io/badge/original-inworld%2Fsava-black)](https://huggingface.co/inworld/sava)
 
@@ -54,7 +55,7 @@ Speed on one CPU thread (Apple M-series, onnxruntime 1.32): offline is about 16 
 ## Quick start (Python)
 
 ```bash
-pip install "sava-onnx[hub] @ git+https://github.com/Robinbinu/sava-onnx"
+pip install "sava-onnx[hub]"
 ```
 
 ```python

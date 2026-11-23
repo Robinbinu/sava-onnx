@@ -3,12 +3,13 @@
 **Inworld SAVA voice activity detection and end-of-turn detection, as ONNX.** One small model answers both "is someone speaking?" and "have they finished their turn?" every 40 ms, on CPU, with no PyTorch.
 
 [![Hugging Face](https://img.shields.io/badge/%F0%9F%A4%97-Binu30%2Fsava--onnx-yellow)](https://huggingface.co/Binu30/sava-onnx)
-[![License](https://img.shields.io/badge/license-Apache%202.0-blue)](LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/sava-onnx)](https://pypi.org/project/sava-onnx/)
+[![License](https://img.shields.io/badge/license-Apache%202.0-blue)](https://github.com/Robinbinu/sava-onnx/blob/main/LICENSE)
 [![Original model](https://img.shields.io/badge/original-inworld%2Fsava-black)](https://huggingface.co/inworld/sava)
 
 [SAVA](https://huggingface.co/inworld/sava) (semantic acoustic voice activity) is Inworld AI's open model that combines streaming VAD with end-of-turn prediction. Inworld reports it ahead of Silero VAD on speech detection and on par with pipecat smart-turn on turn detection ([their benchmarks](https://github.com/inworld-ai/sava/blob/main/bench/README.md)). The official package runs on PyTorch. This repo exports the same weights to ONNX, so SAVA runs wherever ONNX Runtime does: Python, Node.js, the browser (onnxruntime-web), C/C++, C#, Java, Rust, Go, Android and iOS.
 
-> Unofficial community conversion. Not made, reviewed or endorsed by Inworld AI. Weights, behaviour and credit are theirs; see [NOTICE](NOTICE).
+> Unofficial community conversion. Not made, reviewed or endorsed by Inworld AI. Weights, behaviour and credit are theirs; see [NOTICE](https://github.com/Robinbinu/sava-onnx/blob/main/NOTICE).
 
 ## Models
 
@@ -23,14 +24,14 @@ Six graphs: **offline** (a whole recording in one call) or **streaming** (one 40
 | `sava_streaming_fp16.onnx` | streaming, fp16 weights | 52 MB | within 5e-6 |
 | `sava_streaming_int8.onnx` | streaming, int8 | **32 MB** | 99.8% of speech verdicts |
 
-**Which one?** For a realtime voice agent, or audio arriving in pieces, use `sava_streaming_int8.onnx`. For files and batch jobs, use `sava_int8.onnx`. Choose fp16 for exactly the reference model at half the download (SAVA's checkpoint is bf16, so fp16 storage loses nothing measurable), or fp32 for a runtime without fp16 casts. Full numbers are in [PARITY.md](PARITY.md).
+**Which one?** For a realtime voice agent, or audio arriving in pieces, use `sava_streaming_int8.onnx`. For files and batch jobs, use `sava_int8.onnx`. Choose fp16 for exactly the reference model at half the download (SAVA's checkpoint is bf16, so fp16 storage loses nothing measurable), or fp32 for a runtime without fp16 casts. Full numbers are in [PARITY.md](https://github.com/Robinbinu/sava-onnx/blob/main/PARITY.md).
 
 Speed on one CPU thread (Apple M-series, onnxruntime 1.32): offline is about 16 ms per second of audio; streaming int8 is about 1.6 ms per 40 ms frame in Python and 2.8 ms in Node.js. Budget more on small cloud vCPUs.
 
 ## Quick start (Python)
 
 ```bash
-pip install "sava-onnx[hub] @ git+https://github.com/Robinbinu/sava-onnx"
+pip install "sava-onnx[hub]"
 ```
 
 ```python
@@ -60,7 +61,7 @@ for piece in audio_chunks():                   # float32 16 kHz mono numpy array
 frames = stream.flush()                        # end of stream: last verdicts
 ```
 
-`sava_onnx` needs only `numpy` and `onnxruntime`. Its `run`, `Session`, `Policy` and `segment` mirror the official `inworld-sava` API, and its turns match the official segmenter exactly with fp32 and fp16 (int8: within one frame), tested in [tests/test_runtime.py](tests/test_runtime.py). A live microphone demo is in [examples/microphone.py](examples/microphone.py).
+`sava_onnx` needs only `numpy` and `onnxruntime`. Its `run`, `Session`, `Policy` and `segment` mirror the official `inworld-sava` API, and its turns match the official segmenter exactly with fp32 and fp16 (int8: within one frame), tested in [tests/test_runtime.py](https://github.com/Robinbinu/sava-onnx/blob/main/tests/test_runtime.py). A live microphone demo is in [examples/microphone.py](https://github.com/Robinbinu/sava-onnx/blob/main/examples/microphone.py).
 
 ## Quick start (Node.js / browser)
 
@@ -69,7 +70,7 @@ cd examples/js && npm install
 node sava.mjs sava_streaming_int8.onnx speech.wav
 ```
 
-[examples/js/sava.mjs](examples/js/sava.mjs) is a dependency-free streaming loop on `onnxruntime-node`. The same calls run in the browser with `onnxruntime-web`.
+[examples/js/sava.mjs](https://github.com/Robinbinu/sava-onnx/blob/main/examples/js/sava.mjs) is a dependency-free streaming loop on `onnxruntime-node`. The same calls run in the browser with `onnxruntime-web`.
 
 ## Using the graphs directly
 
@@ -130,6 +131,6 @@ Parity is measured on synthetic audio (macOS text-to-speech voices, noise, hum, 
 
 ## License and credit
 
-Apache License 2.0, the same as SAVA. The model, its weights and its design are by [Inworld AI](https://inworld.ai): see the [original model](https://huggingface.co/inworld/sava), the [code](https://github.com/inworld-ai/sava) and the [announcement](https://inworld.ai/blog/introducing-sava). Inworld's NOTICE, including the third-party datasets the weights were trained on, is carried unchanged in [NOTICE](NOTICE), followed by what this repo changed.
+Apache License 2.0, the same as SAVA. The model, its weights and its design are by [Inworld AI](https://inworld.ai): see the [original model](https://huggingface.co/inworld/sava), the [code](https://github.com/inworld-ai/sava) and the [announcement](https://inworld.ai/blog/introducing-sava). Inworld's NOTICE, including the third-party datasets the weights were trained on, is carried unchanged in [NOTICE](https://github.com/Robinbinu/sava-onnx/blob/main/NOTICE), followed by what this repo changed.
 
 If you use SAVA in research, cite Inworld's work; see the [original repository](https://github.com/inworld-ai/sava).
