@@ -1,0 +1,6 @@
+{
+  "name": "sava-onnx-examples",
+  "private": true,
+  "type": "module",
+  "dependencies": { "onnxruntime-node": "^1.20.0" }
+}

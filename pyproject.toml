@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sava-onnx"
+version = "1.0.0"
+description = "Inworld SAVA voice activity + end-of-turn detection on ONNX Runtime: no PyTorch, CPU-friendly, streaming."
+readme = "README.md"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE"]
+requires-python = ">=3.9"
+dependencies = ["numpy>=1.22", "onnxruntime>=1.17"]
+keywords = ["vad", "voice-activity-detection", "turn-detection", "end-of-turn", "onnx", "onnxruntime",
+            "speech", "streaming", "realtime", "voice-agent", "silero-alternative", "sava"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Topic :: Multimedia :: Sound/Audio :: Speech",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+[project.optional-dependencies]
+hub = ["huggingface_hub>=0.23"]
+
+[project.urls]
+Homepage = "https://github.com/Robinbinu/sava-onnx"
+Models = "https://huggingface.co/Binu30/sava-onnx"
+"Original model" = "https://huggingface.co/inworld/sava"
+
+[tool.setuptools]
+packages = ["sava_onnx"]

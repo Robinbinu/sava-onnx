@@ -1,0 +1,10 @@
+models/*.onnx
+*.pre.onnx
+*.mid.onnx
+__pycache__/
+*.egg-info/
+build/
+dist/
+examples/js/node_modules/
+examples/js/package-lock.json
+.venv/
