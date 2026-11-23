@@ -128,10 +128,6 @@ Two numerically identical rewrites make SAVA traceable, both in the export scrip
 
 Parity is measured on synthetic audio (macOS text-to-speech voices, noise, hum, silence, a 122 s clip past the attention window), so anyone can reproduce it.
 
-## Why GGUF isn't here (yet)
-
-GGUF is only a file format: a model also needs a ggml implementation of its architecture to run, and nothing implements SAVA's (a mel frontend, Mamba-2 layers, sliding-window attention and two heads). A GGUF file today would run nowhere, so none is published. If a ggml runtime (whisper.cpp, for example, which runs Silero VAD that way) adds SAVA, a matching GGUF will follow.
-
 ## License and credit
 
 Apache License 2.0, the same as SAVA. The model, its weights and its design are by [Inworld AI](https://inworld.ai): see the [original model](https://huggingface.co/inworld/sava), the [code](https://github.com/inworld-ai/sava) and the [announcement](https://inworld.ai/blog/introducing-sava). Inworld's NOTICE, including the third-party datasets the weights were trained on, is carried unchanged in [NOTICE](NOTICE), followed by what this repo changed.
